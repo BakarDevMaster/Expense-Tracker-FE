@@ -45,7 +45,7 @@ const Register = () => {
         // Uncomment below to use toast for success message:
         // toast.success('Registration successful! Redirecting...');
         setIsLoading(false);
-        navigate('/dashboard');
+        navigate('/login');
       }
     } catch (err) {
       console.error('Registration failed:', err);

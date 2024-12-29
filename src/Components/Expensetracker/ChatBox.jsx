@@ -1,7 +1,9 @@
+// src/components/ChatBox.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, Bot } from 'lucide-react';
 import LoadingSpinner from './LoadingSpinner';
-import ExpenseList from './ExpenseList';
+import ExpenseList from './ExpenseList'; // Adjust the import path as needed
+
 
 const ChatBox = () => {
   const [message, setMessage] = useState('');
@@ -9,6 +11,7 @@ const ChatBox = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
+  const [refreshExpenses, setRefreshExpenses] = useState(0); // Refresh trigger state
   const chatEndRef = useRef(null);
   const typingTimerRef = useRef(null);
 
@@ -58,6 +61,12 @@ const ChatBox = () => {
 
       const data = await response.json();
       typeResponse(data.response);
+      // window.location.reload();
+
+      // Check if an expense was added based on the response
+      if (data.expenseAdded) {
+        setRefreshExpenses((prev) => prev + 1); // Trigger ExpenseList to refresh
+      }
     } catch (err) {
       console.error('AI Agent interaction failed:', err);
       const errorMsg = err.message || 'Failed to get response from AI Agent.';
@@ -202,7 +211,7 @@ const ChatBox = () => {
           <p className="text-sm text-gray-500">View, edit, and delete your expenses</p>
         </div>
         <div className="flex-grow overflow-y-auto p-4">
-          <ExpenseList />
+          <ExpenseList refreshTrigger={refreshExpenses} />
         </div>
       </div>
     </div>

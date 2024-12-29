@@ -81,11 +81,7 @@ const Dashboard = () => {
         </h1>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <DashboardCard 
-            icon={<ChartBarIcon className="w-8 h-8" />}
-            title="Total Expenses"
-            content={formatCurrency(totalExpenses)}
-          />
+          
           
           <DashboardCard 
             icon={<PlusCircleIcon className="w-8 h-8" />}
